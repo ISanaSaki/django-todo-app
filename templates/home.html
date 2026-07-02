@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block home %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'create' %}" class="btn btn-info">Create</a><br/><br/>
+        <div class="card">
+            {% for todo in todos %}
+                <a class="card-body" href="{% url 'detail' todo.id %}">{{ todo.title }}</a><br/>
+            {% empty %}
+                <p class="card-body text-muted">No todos yet. Create one!</p>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Please <a href="{% url 'login_user' %}">login</a> to see your todos.</p>
+    {% endif %}
+{% endblock %}
